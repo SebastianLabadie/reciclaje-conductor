@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "reciclaje-cliente",
-    "slug": "reciclaje-cliente",
+    "name": "trigenus-conductor",
+    "slug": "trigenus-cliente",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -20,7 +20,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.soseki.reciclajecliente"
+      "bundleIdentifier": "com.soseki.trigenusconductor"
     },
     "android": {
       "adaptiveIcon": {

@@ -14,11 +14,9 @@ import LoginScreen from '../screens/LoginScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch, useSelector } from 'react-redux';
 import SignoutScreen from '../screens/SignoutScreen';
-import RequestCollectionScreen from '../screens/RequestCollectionScreen';
-import RequestBagsScreen from '../screens/RequestBagsScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import CollectionPointsScreen from '../screens/CollectionPointsScreen';
-import ScannBagsCollectinScreen from '../screens/ScannBagCollectionScreen';
+import RoutesScreen from '../screens/RoutesScreen';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -116,87 +114,6 @@ function SignoutScreenStack({ navigation }:any) {
 }
 
 
-function RequestCollectionScreenStack({ navigation }:any) {
-  return (
-    <Stack.Navigator
-      initialRouteName="RequestCollection"
-      screenOptions={{
-        headerLeft: () => (
-          <NavigationDrawerStructure navigationProps={navigation} />
-        ),
-        headerBackground: () => (
-          <LinearGradient
-          colors={['#667eea', '#764ba2']}
-          style={{ flex: 1 }}
-          start={{x: 0, y: 0}}
-          end={{x: 1, y: 0}}
-        />
-        ),
-        headerTintColor: '#fff', 
-        headerTitleStyle: {
-          fontWeight: 'bold',
-        },
-
-      }}>
-
-    <Stack.Screen
-        name="RequestCollection"
-        component={RequestCollectionScreen}
-        options={{
-          title: 'Solicitar Recolección', 
-        }}
-      />
-
-              
-    <Stack.Screen
-        name="ScannBags"
-        component={ScannBagsCollectinScreen}
-        options={{
-          title: 'Escanear Bolsas', 
-        }}
-      />
-
-    </Stack.Navigator>
-  );
-}
-
-
-function RequestBagsScreenStack({ navigation }:any) {
-  return (
-    <Stack.Navigator
-      initialRouteName="RequestBags"
-      screenOptions={{
-        headerLeft: () => (
-          <NavigationDrawerStructure navigationProps={navigation} />
-        ),
-        headerBackground: () => (
-          <LinearGradient
-          colors={['#667eea', '#764ba2']}
-          style={{ flex: 1 }}
-          start={{x: 0, y: 0}}
-          end={{x: 1, y: 0}}
-        />
-        ),
-        headerTintColor: '#fff', 
-        headerTitleStyle: {
-          fontWeight: 'bold',
-        },
-
-      }}>
-
-    <Stack.Screen
-        name="RequestBags"
-        component={RequestBagsScreen}
-        options={{
-          title: 'Solicitar Bolsas', 
-        }}
-      />
-
-     
-    </Stack.Navigator>
-  );
-}
-
 
 function CollectionPointsScreenStack({ navigation }:any) {
   return (
@@ -233,6 +150,41 @@ function CollectionPointsScreenStack({ navigation }:any) {
   );
 }
 
+
+function RoutesScreenStack({ navigation }:any) {
+  return (
+    <Stack.Navigator
+      initialRouteName="Routes"
+      screenOptions={{
+        headerLeft: () => (
+          <NavigationDrawerStructure navigationProps={navigation} />
+        ),
+        headerBackground: () => (
+          <LinearGradient
+          colors={['#667eea', '#764ba2']}
+          style={{ flex: 1 }}
+          start={{x: 0, y: 0}}
+          end={{x: 1, y: 0}}
+        />
+        ),
+        headerTintColor: '#fff', 
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+
+      }}>
+
+    <Stack.Screen
+        name="Routes"
+        component={RoutesScreen}
+        options={{
+          title: 'Rutas', 
+        }}
+      />
+     
+    </Stack.Navigator>
+  );
+}
 
 export  function DrawerNavigatorTabs() {
   let isLoged
@@ -273,16 +225,13 @@ export  function DrawerNavigatorTabs() {
             options={{ drawerLabel: 'Perfil',  drawerIcon: (tabinfo) => <FontAwesome name="user-o" size={24} color={tabinfo.color}  />}}
             component={ProfileScreenStack}
           />
+
           <Drawer.Screen
-          name="RequestCollection"
-          options={{ drawerLabel: 'Solicitar Recolección',  drawerIcon: (tabinfo) => <FontAwesome5 name="recycle" size={24} color={tabinfo.color} /> }}
-          component={RequestCollectionScreenStack}
+            name="Routes"
+            options={{ drawerLabel: 'Rutas',  drawerIcon: (tabinfo) => <FontAwesome5 name="route" size={24} color={tabinfo.color}  />}}
+            component={RoutesScreenStack}
           />
-           <Drawer.Screen
-          name="RequestBags"
-          options={{ drawerLabel: 'Solicitar Bolsas',  drawerIcon: (tabinfo) => <SimpleLineIcons name="bag" size={24} color={tabinfo.color} /> }}
-          component={RequestBagsScreenStack}
-          />
+         
            <Drawer.Screen
           name="CollectionPoints"
           options={{ drawerLabel: 'Puntos de Reciclaje',  drawerIcon: (tabinfo) => <Ionicons name="location-sharp" size={24} color={tabinfo.color} /> }}
