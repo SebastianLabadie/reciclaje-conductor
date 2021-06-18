@@ -1,0 +1,41 @@
+{
+  "expo": {
+    "name": "reciclaje-cliente",
+    "slug": "reciclaje-cliente",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "myapp",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.soseki.reciclajecliente"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "config":{
+        "googleMaps":{
+            "apiKey":"AIzaSyDpCfK5NdA1j7xR4TrFGw26XBGftgKNC-I"
+        }
+      },
+      "package": "com.soseki.reciclajecliente"
+    },
+    "web": {
+      "favicon": "./assets/images/favicon.png"
+    }
+  }
+}
