@@ -67,21 +67,33 @@ export default function LoginScreen() {
   }, [])
 
   const handleLogin = async () => {
-    console.log(email, password);
 
-    const res = true;
-    //const res = axios.post('','')
+    
+    const res:any = await axios.post('http://1.1.9.119:8080/SIGA-WS-TEMP/rest/wsLogin',{
+    Usuario:email,
+    Password:password})
 
-    if (res) {
+    console.log('res: ',res.data)
+
+  
+
+    if (res.data.isOk) {
       try {
         await AsyncStorage.setItem(
           "isLoged",
           JSON.stringify({ isLoged: true })
         );
+        await AsyncStorage.setItem(
+          "userData",
+          JSON.stringify({ userData: res.data.SDTDataUser })
+        );
+        dispatch({ type: "SET_USER_DATA", payload: res.data.SDTDataUser });
         dispatch({ type: "SET_USER_STATE", payload: true });
       } catch (e) {
         console.log("error ");
       }
+    }else{
+      alert("Error, usuario/contraseña invalidos")
     }
   };
 

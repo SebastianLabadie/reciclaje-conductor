@@ -3,20 +3,22 @@
 import 'react-native-gesture-handler';
 
 import React, { useEffect } from 'react';
-import { View, TouchableOpacity, Image,Text } from 'react-native';
+import { View, TouchableOpacity, Image } from 'react-native';
 
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import SidebarMenu from './SidebarMenu';
-import { Feather, FontAwesome, MaterialCommunityIcons,SimpleLineIcons,FontAwesome5,Ionicons } from '@expo/vector-icons';
+import {  FontAwesome, MaterialCommunityIcons,SimpleLineIcons,FontAwesome5 } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import LoginScreen from '../screens/LoginScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch, useSelector } from 'react-redux';
 import SignoutScreen from '../screens/SignoutScreen';
 import ProfileScreen from '../screens/ProfileScreen';
-import CollectionPointsScreen from '../screens/CollectionPointsScreen';
 import RoutesScreen from '../screens/RoutesScreen';
+import RouteScreen from '../screens/RouteScreen';
+import RouteCollectionPointsScreen from '../screens/RouteCollectionPointsScreen';
+import RouteScannBagScreen from '../screens/RouteScannBagScreen';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -36,7 +38,7 @@ const NavigationDrawerStructure = (props:any) => {
             uri:
               'https://raw.githubusercontent.com/AboutReact/sampleresource/master/drawerWhite.png',
           }}
-          style={{ width: 25, height: 25, marginLeft: 15 }}
+          style={{ width: 25, height: 25, marginRight: 15 }}
         />
       </TouchableOpacity>
     </View>
@@ -48,7 +50,7 @@ function ProfileScreenStack({ navigation }:any) {
     <Stack.Navigator
       initialRouteName="Profile"
       screenOptions={{
-        headerLeft: () => (
+        headerRight: () => (
           <NavigationDrawerStructure navigationProps={navigation} />
         ),
         headerBackground: () => (
@@ -83,7 +85,7 @@ function SignoutScreenStack({ navigation }:any) {
     <Stack.Navigator
       initialRouteName="Signout"
       screenOptions={{
-        headerLeft: () => (
+        headerRight: () => (
           <NavigationDrawerStructure navigationProps={navigation} />
         ),
         headerBackground: () => (
@@ -115,48 +117,12 @@ function SignoutScreenStack({ navigation }:any) {
 
 
 
-function CollectionPointsScreenStack({ navigation }:any) {
-  return (
-    <Stack.Navigator
-      initialRouteName="CollectionPoints"
-      screenOptions={{
-        headerLeft: () => (
-          <NavigationDrawerStructure navigationProps={navigation} />
-        ),
-        headerBackground: () => (
-          <LinearGradient
-          colors={['#667eea', '#764ba2']}
-          style={{ flex: 1 }}
-          start={{x: 0, y: 0}}
-          end={{x: 1, y: 0}}
-        />
-        ),
-        headerTintColor: '#fff', 
-        headerTitleStyle: {
-          fontWeight: 'bold',
-        },
-
-      }}>
-
-    <Stack.Screen
-        name="CollectionPoints"
-        component={CollectionPointsScreen}
-        options={{
-          title: 'Puntos de Reciclaje', 
-        }}
-      />
-     
-    </Stack.Navigator>
-  );
-}
-
-
 function RoutesScreenStack({ navigation }:any) {
   return (
     <Stack.Navigator
       initialRouteName="Routes"
       screenOptions={{
-        headerLeft: () => (
+        headerRight: () => (
           <NavigationDrawerStructure navigationProps={navigation} />
         ),
         headerBackground: () => (
@@ -171,6 +137,7 @@ function RoutesScreenStack({ navigation }:any) {
         headerTitleStyle: {
           fontWeight: 'bold',
         },
+        headerBackTitle : "d", 
 
       }}>
 
@@ -178,7 +145,31 @@ function RoutesScreenStack({ navigation }:any) {
         name="Routes"
         component={RoutesScreen}
         options={{
-          title: 'Rutas', 
+          title: 'Mis Rutas', 
+        }}
+      />
+
+    <Stack.Screen
+        name="Route"
+        component={RouteScreen}
+        options={{
+          title: 'Ruta',
+        }}
+      />
+
+      <Stack.Screen
+        name="RouteCollectionPoints"
+        component={RouteCollectionPointsScreen}
+        options={{
+          title: 'Puntos de Recolecion',
+        }}
+      />
+
+    <Stack.Screen
+        name="RouteScannBag"
+        component={RouteScannBagScreen}
+        options={{
+          title: 'Escanear Codígo',
         }}
       />
      
@@ -188,13 +179,24 @@ function RoutesScreenStack({ navigation }:any) {
 
 export  function DrawerNavigatorTabs() {
   let isLoged
+  //@ts-ignore
   const userLoged = useSelector(state => state.auth.userLoged)
   const dispatch = useDispatch()
 
   const getIsloged = async () =>{
     isLoged = await AsyncStorage.getItem("isLoged")
     isLoged != null ? isLoged = JSON.parse(isLoged) : isLoged = {isLoged:false}
+
+    if (isLoged.isLoged) {
+      let userData = await AsyncStorage.getItem("userData")
+      userData = JSON.parse(userData!!) 
+       //@ts-ignore
+      dispatch({ type: "SET_USER_DATA", payload: userData?.userData });
+
+    }
+
     dispatch({type:'SET_USER_STATE',payload:isLoged.isLoged})
+    
     console.log('nav: ', isLoged)
   }
 
@@ -228,15 +230,10 @@ export  function DrawerNavigatorTabs() {
 
           <Drawer.Screen
             name="Routes"
-            options={{ drawerLabel: 'Rutas',  drawerIcon: (tabinfo) => <FontAwesome5 name="route" size={24} color={tabinfo.color}  />}}
+            options={{ drawerLabel: 'Mis Rutas',  drawerIcon: (tabinfo) => <FontAwesome5 name="route" size={24} color={tabinfo.color}  />}}
             component={RoutesScreenStack}
           />
          
-           <Drawer.Screen
-          name="CollectionPoints"
-          options={{ drawerLabel: 'Puntos de Reciclaje',  drawerIcon: (tabinfo) => <Ionicons name="location-sharp" size={24} color={tabinfo.color} /> }}
-          component={CollectionPointsScreenStack}
-          />
           <Drawer.Screen
           name="Signout"
           options={{ drawerLabel: 'Salir',  drawerIcon: (tabinfo) => <SimpleLineIcons name="logout" size={24} color={tabinfo.color} /> }}

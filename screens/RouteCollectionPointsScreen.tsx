@@ -5,30 +5,30 @@ var markers = [
   {
     latitude: -34.9003015988709,
     longitude: -56.16171287449369,
-    title: "Punto de Reciclaje 1",
+    title: "Cliente 1",
     subtitle: "Avenida 1234",
   },
   {
     latitude: -34.89672177914575,
     longitude:  -56.16145870318817,
-    title: "Punto de Reciclaje 2",
+    title: "Cliente 2",
     subtitle: "Avenida 1234",
   },
   {
     latitude: -34.894827466359004,
     longitude:  -56.14543591678148,
-    title: "Punto de Reciclaje 3",
+    title: "Cliente 3",
     subtitle: "Avenida 1234",
   },
   {
     latitude: -34.88417114301336, 
     longitude: -56.178347586157386,
-    title: "Punto de Reciclaje 4",
+    title: "Cliente 4",
     subtitle: "Avenida 1234",
   },
 ];
 
-function CollectionPointsScreen() {
+function RouteCollectionPointsScreen() {
   return (
     <View style={styles.container}>
       <MapView
@@ -65,4 +65,4 @@ const styles = StyleSheet.create({
     height: "100%",
   },
 });
-export default CollectionPointsScreen;
+export default RouteCollectionPointsScreen;
