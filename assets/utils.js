@@ -105,7 +105,7 @@ export const getOrdenGen = (Gen) => {
 
 
 
-
+export const URL_BASE = 'http://192.168.1.115:8080/SIGA-TRIGENUS-WS/rest/'
 
 
 

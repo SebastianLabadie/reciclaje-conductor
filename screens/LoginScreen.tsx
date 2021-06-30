@@ -11,6 +11,7 @@ import KeyboardWithDissmis from "../components/KeyboardWithDissmis/KeyboardWithD
 import Colors from "../constants/Colors";
 import WaveBG from "../components/WaveBG/WaveBG";
 import { Image } from "react-native";
+import { URL_BASE } from "../assets/utils";
 
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
@@ -69,7 +70,7 @@ export default function LoginScreen() {
   const handleLogin = async () => {
 
     
-    const res:any = await axios.post('http://1.1.9.119:8080/SIGA-WS-TEMP/rest/wsLogin',{
+    const res:any = await axios.post(`${URL_BASE}wsLogin`,{
     Usuario:email,
     Password:password})
 
